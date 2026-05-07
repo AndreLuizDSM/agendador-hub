@@ -3,7 +3,6 @@
 Sistema completo de gerenciamento de tarefas pessoais desenvolvido com arquitetura de microsserviços. O usuário pode se cadastrar, autenticar e criar, editar e excluir suas próprias agendas, recebendo notificações por e-mail sobre tarefas próximas.
 ---
 ## 🏗️ Arquitetura
-```
 ```mermaid
 flowchart TD
     %% Estilização baseada nas cores das tecnologias
@@ -17,7 +16,7 @@ flowchart TD
     UI[💻 Frontend Angular<br/>agendador-frontend]:::angular
 
     %% BFF / Gateway
-    BFF{⚙️ BFF Spring Boot<br/>agendador-bff}:::spring
+    BFF(⚙️ BFF Spring Boot<br/>agendador-bff):::spring
 
     %% Rede Interna (Microsserviços e Bancos)
     subgraph Rede Docker Interna
@@ -29,8 +28,8 @@ flowchart TD
         SVC_NOTIF[✉️ agendador-notificacao<br/>Cron Jobs]:::spring
         
         %% Bancos de Dados
-        PG[(PostgreSQL)]:::db_pg
         MONGO[(MongoDB)]:::db_mongo
+        PG[(PostgreSQL)]:::db_pg
     end
 
     %% Integrações Externas
