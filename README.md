@@ -4,6 +4,7 @@ Sistema completo de gerenciamento de tarefas pessoais desenvolvido com arquitetu
 ---
 ## 🏗️ Arquitetura
 ```
+```mermaid
 flowchart TD
     %% Estilização baseada nas cores das tecnologias
     classDef angular fill:#DD0031,stroke:#fff,stroke-width:2px,color:#fff
