@@ -4,29 +4,53 @@ Sistema completo de gerenciamento de tarefas pessoais desenvolvido com arquitetu
 ---
 ## 🏗️ Arquitetura
 ```
-┌────────────────────────┐
-│   Frontend Angular     │
-│   (agendador-frontend) │
-└──────────┬─────────────┘
-           │ HTTP
-           ▼
-┌────────────────────────┐
-│   BFF Spring Boot      │  ◄── Gateway, Swagger, Tratamento de Erros
-│   (agendador-bff)      │
-└────┬──────────┬────────┘
-     │          │
-     │ HTTP     │ HTTP
-     ▼          ▼
-┌─────────┐  ┌───────────┐
-│agendador│  │  usuario  │◄── Spring Security + JWT
-│-tarefas │  │           │◄── Integração API externa
-└────┬────┘  └───────────┘
-     │
-     │ HTTP
-     ▼
-┌────────────────────────┐
-│  notificacao           │◄── Gmail API + Cron Job
-└────────────────────────┘
+flowchart TD
+    %% Estilização baseada nas cores das tecnologias
+    classDef angular fill:#DD0031,stroke:#fff,stroke-width:2px,color:#fff
+    classDef spring fill:#6DB33F,stroke:#fff,stroke-width:2px,color:#fff
+    classDef db_pg fill:#316192,stroke:#fff,stroke-width:2px,color:#fff
+    classDef db_mongo fill:#4EA94B,stroke:#fff,stroke-width:2px,color:#fff
+    classDef external fill:#555,stroke:#fff,stroke-width:2px,color:#fff
+
+    %% Front-end
+    UI[💻 Frontend Angular<br/>agendador-frontend]:::angular
+
+    %% BFF / Gateway
+    BFF{⚙️ BFF Spring Boot<br/>agendador-bff}:::spring
+
+    %% Rede Interna (Microsserviços e Bancos)
+    subgraph Rede Docker Interna
+        direction TB
+        
+        %% Serviços
+        SVC_USER[👤 agendador-usuario<br/>Spring Security + JWT]:::spring
+        SVC_TASK[📅 agendador-tarefas<br/>Lógica de Agendas]:::spring
+        SVC_NOTIF[✉️ agendador-notificacao<br/>Cron Jobs]:::spring
+        
+        %% Bancos de Dados
+        PG[(PostgreSQL)]:::db_pg
+        MONGO[(MongoDB)]:::db_mongo
+    end
+
+    %% Integrações Externas
+    API_EXT[🌐 API Externa]:::external
+    GMAIL[📧 Gmail API]:::external
+
+    %% Fluxo de Comunicação
+    UI == HTTP REST ==> BFF
+    
+    BFF -- Roteamento HTTP --> SVC_USER
+    BFF -- Roteamento HTTP --> SVC_TASK
+    
+    SVC_TASK -- Gatilho HTTP --> SVC_NOTIF
+    
+    %% Persistência
+    SVC_USER -.-> PG
+    SVC_TASK -.-> MONGO
+    
+    %% Comunicação Externa
+    SVC_USER -. Consome .-> API_EXT
+    SVC_NOTIF -. Envia E-mail .-> GMAIL
 ```
 
 ## 📦 Serviços
