@@ -115,6 +115,13 @@ Todos os serviços serão baixados automaticamente do Docker Hub e iniciados.
 | Notificação | http://localhost:8082 |
 | BFF + Swagger | http://localhost:8083/swagger-ui.html |
 
+### 🔑 Acesso Rápido 
+O projeto conta com uma rotina de **Database Seeding**. Ao subir os containers pela primeira vez, o serviço de usuários detecta o banco vazio e injeta automaticamente um usuário padrão com a senha criptografada (BCrypt). 
+Você não precisa criar um cadastro do zero para avaliar a plataforma. Utilize as credenciais abaixo na tela de login do Front-end ou via Swagger:
+
+- **E-mail:** `admin@teste.com`
+- **Senha:** `senha123`
+
 ### Encerrando
 
 ```bash
