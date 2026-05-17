@@ -10,6 +10,13 @@ services:
       - SPRING_MONGODB_URI=mongodb://mongo:27017/db_agendador
     depends_on:
       - mongo
+  agendador-front:
+    image: aominedk/agendador-front:latest
+    container_name: agendador-front
+    ports:
+      - "4200:80"
+    depends_on:
+      - bff-agendador-de-tarefas
   bff-agendador-de-tarefas:
     image: aominedk/bff-agendador-de-tarefas:latest
     container_name: bff-agendador-de-tarefas
@@ -19,6 +26,10 @@ services:
       - USUARIO_URL=usuario:8080/usuario
       - AGENDADOR_TAREFAS_URL=agendador-tarefas:8081/tarefas
       - NOTIFICACAO_URL=notificacao:8082/email
+    depends_on:
+      - usuario
+      - agendador-tarefas
+      - notificacao
   usuario:
     image: aominedk/usuario-service:latest
     container_name: usuario
