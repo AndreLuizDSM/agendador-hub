@@ -61,7 +61,7 @@ flowchart TD
 | BFF | [agendador-bff](https://github.com/AndreLuizDSM/agendador-bff) | Java · Spring Boot | Gateway, orquestração, Swagger, tratamento de erros |
 | Tarefas | [agendador-tarefas](https://github.com/AndreLuizDSM/agendador-tarefas) | Java · Spring Boot · MongoDB | CRUD de agendas |
 | Usuário | [agendador-usuario](https://github.com/AndreLuizDSM/agendador-usuario) | Java · Spring Boot · PostgreSQL | Cadastro, autenticação e integração com API externa |
-| Notificação | [agendador-notificacao](https://github.com/AndreLuizDSM/agendador-notificacao) | Java · Spring Boot | Envio de e-mails via Gmail API com Cron Job |
+| Notificação | [agendador-notificacao](https://github.com/AndreLuizDSM/agendador-notificacao) | Java · Spring Boot | Envio de e-mails via Gmail API, usado pelo CRON |
 
 ---
 ## 🛠️ Tecnologias e Conceitos Aplicados
@@ -75,7 +75,7 @@ flowchart TD
 - **Spring Data MongoDB** — CRUD de agendas
 - **OpenFeign** — comunicação entre microsserviços
 - **Swagger / SpringDoc** — documentação da API no BFF
-- **Cron Job** — agendamento automático de verificação de tarefas
+- **Cron Job** — envio automático de verificação de tarefas
 - **Gmail API** — envio de notificações por e-mail
 - **Integração com API externa** no serviço de usuário e BFF
 - **Tratamento de erros** centralizado no BFF
@@ -119,7 +119,7 @@ Todos os serviços serão baixados automaticamente do Docker Hub e iniciados.
 O projeto conta com uma rotina de **Database Seeding**. Ao subir os containers pela primeira vez, o serviço de usuários detecta o banco vazio e injeta automaticamente um usuário padrão com a senha criptografada (BCrypt). 
 Você não precisa criar um cadastro do zero para avaliar a plataforma. Utilize as credenciais abaixo na tela de login do Front-end ou via Swagger:
 
-- **E-mail:** `admin@teste.com`
+- **E-mail:** `andre.teste.notificacao@gmail.com`
 - **Senha:** `senha123`
 
 ### Encerrando
